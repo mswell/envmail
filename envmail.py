@@ -1,6 +1,7 @@
 import os
 import smtplib
 import glob
+import time
 from email.MIMEMultipart import MIMEMultipart
 from email.MIMEBase import MIMEBase
 from email.MIMEText import MIMEText
@@ -8,9 +9,9 @@ from email import Encoders
 
 
 def enviar_correo(para, assunto, mensagem, anexo):
-
+    # Funcao que faz a tratativa do envio do email
     msg = MIMEMultipart()
-    msg['From'] = 'seu endereço de email'
+    msg['From'] = 'SEU_ENDEREÇO_DE_EMAIL'
     msg['To'] = para
     msg['Subject'] = assunto
     if mensagem != '':
@@ -22,7 +23,7 @@ def enviar_correo(para, assunto, mensagem, anexo):
                         os.path.basename(anexo))
         msg.attach(part)
     Encoders.encode_base64(part)
-    #nesse caso estou usando gmail
+    # nesse caso estou usando gmail
     mailServer = smtplib.SMTP("smtp.gmail.com", 587)
     mailServer.ehlo()
     mailServer.starttls()
@@ -31,12 +32,13 @@ def enviar_correo(para, assunto, mensagem, anexo):
     mailServer.sendmail(msg['From'], para, msg.as_string())
     mailServer.close()
     print 'Correio enviado'
+
+
 # Localizando o Anexo
-# exemplo Localizando PDF na pasta que esta o código
-# arquivo = glob.glob('*.pdf')
-# Exemplo para enviar correio sem mensagem e sem anexo
-#enviar_correo('Destinatario', 'assunto', '', '')
+# exemplo Localizando PDF na pasta local
+arquivo = glob.glob('*.pdf')
 # Exemplo para enviar correio com mensagem e com anexo
-#enviar_correo('Destinatario', 'Assunto',
-#              'Corpo do email',
-#              '%s' % arquivo[0])
+for envio in arquivo:
+    enviar_correo('destinatario', 'assunto',
+                  'corpo do email', '%s' % envio)
+    time.sleep(15)
