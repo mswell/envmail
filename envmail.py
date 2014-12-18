@@ -33,7 +33,7 @@ def enviar_correo(para, assunto, mensagem, anexo):
     print 'Correio enviado'
 # Localizando o Anexo
 # exemplo Localizando PDF na pasta que esta o código
-arquivo = glob.glob('*.pdf')
+# arquivo = glob.glob('*.pdf')
 # Exemplo para enviar correio sem mensagem e sem anexo
 #enviar_correo('Destinatario', 'assunto', '', '')
 # Exemplo para enviar correio com mensagem e com anexo
